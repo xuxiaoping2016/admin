@@ -1,0 +1,16 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "商户后台管理系统",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/xuxiaoping2016/admin.git",
+  "author": "“xuxiaoping2016 <xxp6665@sina.cn>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuxiaoping2016/admin/issues"
+  },
+  "homepage": "https://github.com/xuxiaoping2016/admin#readme"
+}
