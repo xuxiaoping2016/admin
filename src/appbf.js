@@ -10,28 +10,10 @@ import Home2 from 'page/home/index2.jsx'
 
 class A extends Component{
   render(){
-    const { match } = this.props
+    const { params } = this.props.match
     return <div>
       Component A
-      <Switch>
-        <Route exact path={`${match.path}`} render = {(router) =>{
-          console.log(router)
-          return (<div>
-            不带参数的组件A
-          </div>)
-        }}/>
-        <Route path={`${match.path}/sub`} render = {(router) =>{
-          console.log(router)
-          return (<div>当前组件 SUB</div>)
-        }}/>
-        <Route path={`${match.path}/:id`} render = {(router) =>{
-          console.log(router)
-          return (<div>
-            带参数的组件A<br/>
-            参数：{router.match.params.id}
-          </div>)
-        }}/>
-      </Switch>
+      参数：{ params.id}
       </div>
   }
 }
@@ -50,9 +32,8 @@ class Wrapper extends Component{
   render(){
     return (
       <div className="naves">
-        <Link to="/a">组件A</Link>
+        <Link to="/a">不带参数的组件A</Link>
         <Link to="/a/123">带参数的组件A</Link>
-        <Link to="/a/sub">组件Sub</Link>
         <Link to="/b/123">内页</Link>
         {this.props.children} 
       </div>
@@ -60,14 +41,28 @@ class Wrapper extends Component{
   }
 }
 
-
+class App extends Component{
+  render(){
+    return (
+      <Router>
+        <Wrapper>
+          <Switch>
+          <Route exact path="/a" component={Home}/>
+          {/* <Redirect from="" to="/"/> */}
+          <Route path="/b/:id" component={Home2}/>
+          </Switch>
+        </Wrapper>
+      </Router>
+    )
+  }
+}
 
 ReactDom.render(
   <Router>
     <Wrapper>
       <Switch>
-        <Route path="/a" component={A}/>
-        {/* <Route exact path="/a/:id?" component={A}/> */}
+        {/* <Route exact path="/a" component={A}/> */}
+        <Route exact path="/a/:id?" component={A}/>
         {/* <Redirect from="" to="/"/> */}
         <Route path="/b/:id" component={B}/>
       </Switch>

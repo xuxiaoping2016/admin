@@ -7,6 +7,7 @@ module.exports = {
   entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath:"/dist/",
     filename: 'js/app.js'
   },
   module: {
@@ -42,7 +43,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              // name:'images/[name].[ext]'
+              name:'images/[name].[ext]'
             }
           }
         ]
@@ -52,10 +53,10 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            // options: {
-            //   limit: 8192,
-            //   name:'font/[name].[ext]'
-            // }
+            options: {
+              limit: 8192,
+              name:'resource/[name].[ext]'
+            }
           }
         ]
       }
@@ -71,7 +72,13 @@ module.exports = {
       filename:"js/base.js"
     })
   ],
+  resolve:{
+    alias:{
+      page: path.resolve(__dirname,'./src/pages')
+    }
+  },
   devServer:{
-    contentBase: './dist'
+    contentBase: './dist',
+    port:8001
   }
 };
