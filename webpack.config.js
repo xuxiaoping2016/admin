@@ -74,11 +74,15 @@ module.exports = {
   ],
   resolve:{
     alias:{
-      page: path.resolve(__dirname,'./src/pages')
+      page: path.resolve(__dirname,'./src/pages'),
+      components: path.resolve(__dirname,'./src/components')
     }
   },
   devServer:{
-    contentBase: './dist',
-    port:8001
+    // contentBase: './dist',
+    port:8001,
+    historyApiFallback:{
+      index:'/dist/index.html'
+    }
   }
 };
