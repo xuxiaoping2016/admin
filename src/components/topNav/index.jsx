@@ -1,16 +1,29 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import _user from 'service/user-service.jsx'
+import MUtil from 'util/mm.jsx'
+const _mm = new MUtil();
 
 class TopNav extends Component {
   constructor(props){
     super(props)
+
+    this.state = {
+        userInfo: _mm.getStorage("userInfo")
+    }
   }
 
-  // onLogout = () => {
-  //   console.log("lo")
-  // }
+  onLogout = () => {
+    _user.logout().then(res => {
+        _mm.removeStorage("userInfo")
+        this.props.history.push("/login")
+    },errMsg => {
+        _mm.errorTips(errMsg)
+    })
+  }
 
   render() {
+      const { userInfo } = this.state;
     return (
       <nav className="navbar navbar-default top-navbar">
             <div className="navbar-header">
@@ -21,7 +34,11 @@ class TopNav extends Component {
                 <li className="dropdown">
                     <a className="dropdown-toggle" href="javascript:;">
                         <i className="fa fa-user fa-fw"></i>
-                        <span>欢迎，adminXXX</span>
+                        {
+                            userInfo.username
+                            ? <span>欢迎，{userInfo.username}</span>
+                            :<span>欢迎您</span>
+                        }
                         <i className="fa fa-caret-down"></i>
                     </a>
                     <ul className="dropdown-menu dropdown-user">

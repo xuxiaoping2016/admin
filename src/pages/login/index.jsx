@@ -1,13 +1,17 @@
 import React, { Component} from 'react'
+import user from 'service/user-service.jsx'
 import './index.scss'
+import MUtil from 'util/mm.jsx'
+const _mm = new MUtil();
 
 export default class PageTitle extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      userName:'',
-      passWord:''
+      username:'',
+      password:'',
+      redirect:_mm.getUrlParam('redirect') || '/'
     }
   }
   
@@ -15,12 +19,28 @@ export default class PageTitle extends Component {
      this.setState({
        [e.target.name] : e.target.value
      },() => {
-       console.log(this.state)
+      //  console.log(this.state)
      })
   }
 
   submit(e){
-    console.log("den")
+    const {redirect, ...logininfo} = this.state;
+    console.log(redirect)
+    // this.props.history.push(redirect);
+    // return;
+    
+    const checkResult = user.checkLoginInfo(logininfo);
+    if(checkResult.status){
+      user.login(logininfo).then((res) => {
+        _mm.setStorage("userInfo",res)
+        this.props.history.push(redirect);
+      },(err) => {
+        _mm.errorTips(err)
+      })
+    }else{
+      _mm.errorTips(checkResult.msg)
+    }
+    
   }
 
   render(){
@@ -32,7 +52,7 @@ export default class PageTitle extends Component {
                 <div>
                   <div className="form-group">
                     <input
-                    name = "userName"
+                    name = "username"
                     type="text" 
                     className="form-control" 
                     placeholder="请输入用户名"
@@ -40,7 +60,7 @@ export default class PageTitle extends Component {
                   </div>
                   <div className="form-group">
                     <input
-                    name = "passWord"
+                    name = "password"
                     type="password"
                     className="form-control"
                     placeholder="请输入密码"

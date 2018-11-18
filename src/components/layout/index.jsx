@@ -9,9 +9,10 @@ class Layout extends Component {
   }
 
   render() {
+    console.log("layout",this.props)
     return (
       <div id="wrapper">
-        <TopNav/>
+        <TopNav history={this.props.history}/>
         <SideNav/>
         {this.props.children}
       </div>

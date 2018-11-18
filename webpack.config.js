@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: './src/app.js',
+  entry: ["babel-polyfill",'./src/app.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath:"/dist/",
@@ -18,7 +18,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env','react']
+            presets: ['env', 'react', 'es2015', 'stage-0'],
           }
         }
       },
@@ -75,7 +75,10 @@ module.exports = {
   resolve:{
     alias:{
       page: path.resolve(__dirname,'./src/pages'),
-      components: path.resolve(__dirname,'./src/components')
+      components: path.resolve(__dirname,'./src/components'),
+      util : path.resolve(__dirname,'./src/util'),
+      images : path.resolve(__dirname,'./src/images'),
+      service : path.resolve(__dirname,'./src/service')
     }
   },
   devServer:{
@@ -83,6 +86,16 @@ module.exports = {
     port:8001,
     historyApiFallback:{
       index:'/dist/index.html'
+    },
+    proxy:{
+      '/manage':{
+        target:"http://admintest.happymmall.com",
+        changeOrigin:true
+      },
+      "/user/logout.do":{
+        target:"http://admintest.happymmall.com",
+        changeOrigin:true
+      }
     }
   }
 };
