@@ -7,6 +7,7 @@ import Login from 'page/login/index.jsx'
 import Layout from 'components/layout/index.jsx'
 import Home from 'page/home/index.jsx'
 import UserList from 'page/user/index.jsx'
+import ProductRouter from 'page/product/index/router.jsx'
 import Error from 'page/error/index.jsx'
 
 class LayoutRouter extends Component {
@@ -15,9 +16,9 @@ class LayoutRouter extends Component {
       <Layout {...this.props}>
         <Switch>
           <Route exact path="/" component = {Home}/>
-          <Route exact path="/product" component = {Home}/>
+          <Route path="/product" component = {ProductRouter}/>
           <Route exact path="/product-category" component = {Home}/>
-          <Route exact path="/order" component = {Home}/>
+          <Route path="/order" component = {Home}/>
           <Route exact path="/user/index" component = {UserList}/>
           <Redirect form="/user" to="/user/index"></Redirect>
           <Route component = {Error}/>

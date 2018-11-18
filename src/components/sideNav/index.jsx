@@ -24,7 +24,7 @@ class SideNav extends Component {
                         </NavLink>
                         <ul className="nav nav-second-level collapse in">
                             <li>
-                                <NavLink activeClassName="active-menu" to="/product">商品管理</NavLink>
+                                <NavLink activeClassName="active-menu" to="/product/index">商品管理</NavLink>
                             </li>
                             <li>
                                 <NavLink activeClassName="active-menu" to="/product-category">品类管理</NavLink>
