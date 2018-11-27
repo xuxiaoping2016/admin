@@ -1,6 +1,7 @@
 import React ,{ Component} from 'react'
 import { Link } from 'react-router-dom'
 import PageTitle from 'components/page-title/index.jsx'
+import TableList from 'components/tableList/index.jsx'
 import Pagination from 'components/pagination/index.jsx'
 
 import _user from 'service/user-service.jsx'
@@ -44,6 +45,13 @@ export default class UserList extends Component {
   render(){
       const {pageNum, total, list, firstLoading} = this.state;
 
+      let tableHeads = [
+        {name:"ID",width:"20%"},
+        {name:"用户名",width:"20%"},
+        {name:"邮箱",width:"20%"},
+        {name:"电话",width:"20%"},
+        {name:"创建时间",width:"20%"}
+    ]
       let listBody = list.map(item => {
         return (
             <tr key={item.id}>
@@ -56,17 +64,20 @@ export default class UserList extends Component {
         )
     });
     
-    let listErr = (
-        <tr>
-            <td colSpan={5}>{ firstLoading ? '暂无数据' : '没有找到相应结果!'}</td>
-        </tr>
-    )
+    // let listErr = (
+    //     <tr>
+    //         <td colSpan={5}>{ firstLoading ? '暂无数据' : '没有找到相应结果!'}</td>
+    //     </tr>
+    // )
 
-    let tableBody = list.length > 0 ? listBody : listErr;
+    // let tableBody = list.length > 0 ? listBody : listErr;
     return (
       <div id="page-wrapper">
         <PageTitle title="用户列表"/>
-        <div className="row">
+        <TableList tableHeader={tableHeads}>
+            { listBody }
+        </TableList>
+        {/* <div className="row">
             <div className="col-md-12">
                 <table className="table table-striped table-bordered">
                     <thead>
@@ -83,7 +94,7 @@ export default class UserList extends Component {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> */}
         <Pagination
             current= {pageNum}
             total = {total}

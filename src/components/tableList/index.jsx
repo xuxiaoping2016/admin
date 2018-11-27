@@ -17,9 +17,12 @@ export default class TableList extends Component {
   }
   render(){
     //   const {current, total, onChange } = this.props;
-
     const tableHeader = this.props.tableHeader.map((item,index) => {
-        return <th key={index}>{item}</th>
+        if(typeof item === 'object'){
+            return <th key={index} width={item.width}>{item.name}</th>
+        }else{
+            return <th key={index}>{item}</th>
+        }
     });
 
     const listBody = this.props.children;
@@ -37,7 +40,7 @@ export default class TableList extends Component {
                         <tr>{tableHeader}</tr>
                     </thead>
                     <tbody>
-                        {listBody}
+                        {listBody.length ? listBody : ListInfo}
                     </tbody>
                 </table>
             </div>

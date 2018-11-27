@@ -36,6 +36,10 @@ class MUtil{
     return result[2] ? decodeURIComponent(result[2]) : null;
   }
 
+  successTips(msg){
+    alert(msg ||"操作成功！！！")
+  }
+
   errorTips(errMsg){
     alert(errMsg ||"好像哪里不对了~~~~")
   }

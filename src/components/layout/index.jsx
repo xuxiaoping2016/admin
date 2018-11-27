@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import TopNav from 'components/topNav/index.jsx';
 import SideNav from 'components/sideNav/index.jsx';
-import './index.css'
-
+import './theme.css'
+import './index.scss'
 class Layout extends Component {
   constructor(props){
     super(props)
